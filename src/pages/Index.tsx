@@ -88,13 +88,17 @@ const videoData: VideoItem[] = [
 const Index = () => {
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
+  const openTelegram = () => {
+    window.open('https://t.me/Framix_Manager', '_blank');
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-900">
       {/* Header */}
-      <header className="py-8 px-6 border-b border-gray-100">
+      <header className="py-8 px-6 border-b border-gray-700">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-black tracking-tight">VIDEO PORTFOLIO</h1>
-          <p className="text-gray-600 mt-2 font-light">Профессиональное видеопроизводство</p>
+          <h1 className="text-4xl font-bold text-white tracking-tight">VIDEO PORTFOLIO</h1>
+          <p className="text-gray-400 mt-2 font-light">Профессиональное видеопроизводство</p>
         </div>
       </header>
 
@@ -105,16 +109,16 @@ const Index = () => {
             {videoData.map((video) => (
               <div
                 key={video.id}
-                className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 onClick={() => setSelectedVideo(video)}
               >
-                <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-video">
+                <div className="relative overflow-hidden rounded-2xl bg-gray-800 aspect-video">
                   <img 
                     src={video.thumbnail} 
                     alt={video.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                     <Icon 
                       name="Play" 
                       size={48} 
@@ -123,16 +127,16 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <div className="mt-4 p-4 bg-white border border-gray-100 rounded-lg transform transition-all duration-300 group-hover:shadow-lg">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-lg text-black">{video.title}</h3>
-                    <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                <div className="mt-4 p-6 bg-gray-800 border border-gray-700 rounded-2xl transform transition-all duration-300 group-hover:shadow-2xl group-hover:bg-gray-750">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-semibold text-lg text-white">{video.title}</h3>
+                    <span className="text-sm font-medium text-gray-300 bg-gray-700 px-3 py-1 rounded-full">
                       {video.category}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">{video.clientName}</span>
-                    <span className="text-lg font-bold text-black">{video.price}</span>
+                    <span className="text-sm text-gray-400">{video.clientName}</span>
+                    <span className="text-lg font-bold text-white">{video.price}</span>
                   </div>
                 </div>
               </div>
@@ -143,15 +147,15 @@ const Index = () => {
 
       {/* Modal */}
       <Dialog open={!!selectedVideo} onOpenChange={() => setSelectedVideo(null)}>
-        <DialogOverlay className="bg-black bg-opacity-90" />
-        <DialogContent className="max-w-[90vw] w-full h-[80vh] bg-white p-0 overflow-hidden" style={{aspectRatio: '16/9'}}>
+        <DialogOverlay className="bg-black bg-opacity-95" />
+        <DialogContent className="max-w-[90vw] w-full h-[80vh] bg-gray-800 p-0 overflow-hidden rounded-3xl border border-gray-700" style={{aspectRatio: '16/9'}}>
           {selectedVideo && (
             <div className="flex h-full">
               {/* Video Player - Left Side */}
-              <div className="bg-black flex items-center justify-center" style={{aspectRatio: '16/9', width: 'calc(100% - 320px)'}}>
+              <div className="bg-black flex items-center justify-center rounded-l-3xl" style={{aspectRatio: '16/9', width: 'calc(100% - 320px)'}}>
                 <iframe
                   src={selectedVideo.videoUrl}
-                  className="w-full h-full"
+                  className="w-full h-full rounded-l-3xl"
                   frameBorder="0"
                   allowFullScreen
                   title={selectedVideo.title}
@@ -159,22 +163,22 @@ const Index = () => {
               </div>
               
               {/* Info Panel - Right Side */}
-              <div className="w-80 bg-white p-8 flex flex-col justify-between">
+              <div className="w-80 bg-gray-800 p-8 flex flex-col justify-between rounded-r-3xl">
                 <div>
-                  <h2 className="text-2xl font-bold text-black mb-6 tracking-tight">
+                  <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">
                     {selectedVideo.category}
                   </h2>
                   
                   <div className="flex items-center gap-4 mb-6">
                     <Avatar className="w-12 h-12">
                       <AvatarImage src={selectedVideo.clientAvatar} alt={selectedVideo.clientName} />
-                      <AvatarFallback>{selectedVideo.clientName.charAt(1)}</AvatarFallback>
+                      <AvatarFallback className="bg-gray-700 text-white">{selectedVideo.clientName.charAt(1)}</AvatarFallback>
                     </Avatar>
                     <a 
                       href={selectedVideo.clientChannel}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg font-medium text-black hover:text-gray-600 transition-colors duration-200"
+                      className="text-lg font-medium text-white hover:text-gray-300 transition-colors duration-200"
                     >
                       {selectedVideo.clientName}
                     </a>
@@ -182,13 +186,22 @@ const Index = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="text-3xl font-bold text-gray-900">
+                  <div className="text-3xl font-bold text-white">
                     {selectedVideo.price}
                   </div>
                   
+                  {/* Telegram Button */}
+                  <Button 
+                    onClick={openTelegram}
+                    className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 rounded-xl py-3 flex items-center justify-center gap-2"
+                  >
+                    <Icon name="MessageCircle" size={20} />
+                    Связаться в Telegram
+                  </Button>
+                  
                   <Button 
                     onClick={() => setSelectedVideo(null)}
-                    className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200"
+                    className="w-full bg-gray-700 text-white hover:bg-gray-600 transition-colors duration-200 rounded-xl py-3"
                   >
                     Закрыть
                   </Button>
