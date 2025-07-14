@@ -144,11 +144,11 @@ const Index = () => {
       {/* Modal */}
       <Dialog open={!!selectedVideo} onOpenChange={() => setSelectedVideo(null)}>
         <DialogOverlay className="bg-black bg-opacity-90" />
-        <DialogContent className="max-w-6xl w-full h-[80vh] bg-white p-0 overflow-hidden">
+        <DialogContent className="max-w-[90vw] w-full h-[80vh] bg-white p-0 overflow-hidden" style={{aspectRatio: '16/9'}}>
           {selectedVideo && (
             <div className="flex h-full">
               {/* Video Player - Left Side */}
-              <div className="flex-1 bg-black flex items-center justify-center">
+              <div className="bg-black flex items-center justify-center" style={{aspectRatio: '16/9', width: 'calc(100% - 320px)'}}>
                 <iframe
                   src={selectedVideo.videoUrl}
                   className="w-full h-full"
